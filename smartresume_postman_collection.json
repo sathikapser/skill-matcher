@@ -1,0 +1,254 @@
+{
+  "info": {
+    "name": "SmartResume AI - Complete Backend Collection",
+    "_postman_id": "smartresume-ai-backend-v1",
+    "description": "Postman test collection for SmartResume AI backend endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "jwtToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "resumeId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "1. Auth - Signup",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "if (response.token) {",
+              "    pm.collectionVariables.set('jwtToken', response.token);",
+              "}",
+              "if (response.user && response.user.id) {",
+              "    pm.collectionVariables.set('userId', response.user.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane.doe@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"user\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/signup",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "signup"]
+        }
+      }
+    },
+    {
+      "name": "2. Auth - Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "if (response.token) {",
+              "    pm.collectionVariables.set('jwtToken', response.token);",
+              "}",
+              "if (response.user && response.user.id) {",
+              "    pm.collectionVariables.set('userId', response.user.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"jane.doe@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "3. Auth - Get Profile (Me)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "me"]
+        }
+      }
+    },
+    {
+      "name": "4. Resume - Upload (PDF/DOCX)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "if (response.resume && response.resume._id) {",
+              "    pm.collectionVariables.set('resumeId', response.resume._id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "resume",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/resume/upload",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "resume", "upload"]
+        }
+      }
+    },
+    {
+      "name": "5. Resume - Get All Resumes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/resume/user/all",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "resume", "user", "all"]
+        }
+      }
+    },
+    {
+      "name": "6. Resume - Get Resume by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/resume/{{resumeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "resume", "{{resumeId}}"]
+        }
+      }
+    },
+    {
+      "name": "7. Analyze - Match Resume to Job",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"resumeId\": \"{{resumeId}}\",\n  \"jobDescription\": \"Looking for a Senior Full Stack Engineer proficient in React, Node.js, TypeScript, Docker, and MongoDB. Experience in building REST APIs and microservices required.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/analyze",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "analyze"]
+        }
+      }
+    },
+    {
+      "name": "8. Dashboard - Get User Dashboard Data",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/dashboard",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "dashboard"]
+        }
+      }
+    }
+  ]
+}

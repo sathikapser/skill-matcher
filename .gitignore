@@ -1,0 +1,28 @@
+# Node & Frontend dependencies
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.env
+
+# Python Virtual Environment & Cache
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Downloaded datasets & local temp files
+Downloads/
+.uix/
+
+# Uploaded Resumes (Local temp storage)
+uploads/*
+!uploads/.gitkeep
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

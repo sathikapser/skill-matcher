@@ -1,0 +1,106 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.8.14,<3.9.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"0069cf9",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null,
+    "mode":"default"
+  },
+  "labels":{
+    "tok2vec":[
+
+    ],
+    "ner":[
+      "College Name",
+      "Companies worked at",
+      "Degree",
+      "Designation",
+      "Email Address",
+      "Graduation Year",
+      "Location",
+      "Name",
+      "Skills",
+      "Years of Experience"
+    ]
+  },
+  "pipeline":[
+    "tok2vec",
+    "ner"
+  ],
+  "components":[
+    "tok2vec",
+    "ner"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "ents_f":0.9460819554,
+    "ents_p":0.944045911,
+    "ents_r":0.9481268012,
+    "ents_per_type":{
+      "Email Address":{
+        "p":1.0,
+        "r":1.0,
+        "f":1.0
+      },
+      "Designation":{
+        "p":0.9310344828,
+        "r":0.9926470588,
+        "f":0.9608540925
+      },
+      "Graduation Year":{
+        "p":1.0,
+        "r":0.9166666667,
+        "f":0.9565217391
+      },
+      "Skills":{
+        "p":0.9173553719,
+        "r":0.9327731092,
+        "f":0.925
+      },
+      "College Name":{
+        "p":0.9902912621,
+        "r":0.9714285714,
+        "f":0.9807692308
+      },
+      "Degree":{
+        "p":1.0,
+        "r":0.8024691358,
+        "f":0.8904109589
+      },
+      "Years of Experience":{
+        "p":0.8333333333,
+        "r":0.8333333333,
+        "f":0.8333333333
+      },
+      "Location":{
+        "p":0.9032258065,
+        "r":0.9655172414,
+        "f":0.9333333333
+      },
+      "Name":{
+        "p":1.0,
+        "r":1.0,
+        "f":1.0
+      },
+      "Companies worked at":{
+        "p":0.8813559322,
+        "r":0.962962963,
+        "f":0.9203539823
+      }
+    },
+    "tok2vec_loss":2903.661878957,
+    "ner_loss":369.9374389648
+  }
+}
